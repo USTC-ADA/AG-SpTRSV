@@ -12,8 +12,8 @@ Linux: Ubuntu 18.04
 Python: 3.9  
 Necessary Python packages and recommended versions: Pytorch-3.1.12 scikit-learn-1.1.3 scikit-learn numpy-1.23.3 pandas-1.5.3 
 
-## Build up & Execution
-### Setup and Compile
+## Quick start
+### Setup and compile
 Before compiling AG-SpTRSV, set `SM_NUM` and `BLOCK_NUM` in `include/GPU_setup.h` as the number of multi-processors on the running GPU. Then compile with
 ```
 sh scripts/build_all.sh
