@@ -13,10 +13,10 @@ Python: 3.9
 Necessary Python packages and recommended versions: Pytorch-3.1.12 scikit-learn-1.1.3 scikit-learn numpy-1.23.3 pandas-1.5.3 
 
 ## Build up & Execution
-### Compile
+### Setup and Compile
+Before compiling AG-SpTRSV, set `SM_NUM` and `BLOCK_NUM` in `include/GPU_setup.h` as the number of multi-processors on the running GPU. Then compile with
 ```
-cd scripts
-sh build_all.sh
+sh scripts/build_all.sh
 ```
 
 ### Transform the matrix
@@ -27,6 +27,7 @@ sh build_all.sh
 ```
 
 ### Run AG-SpTRSV with manually specified strategies
+
 1. Modify Line 151 in code file ``test/main_ag.cu``. Strategies are provided in ``include/common.h``. Users can change the following parameters:
 
 The size of the thread_block `tb_size` (which influences *nw*).
@@ -71,13 +72,26 @@ One strategy in the third hierarchy of *Schedule* stage (*level_ss*):
 
 Create `anaparas` (scheme information) for AG-SpTRSV, the initiation function is
 ```
-anaparas(int tb_size, int subwarp_size, PREPROCESSING_STRATEGY row_s, int row_alpha, LEVEL_PART_STRATEGY level_ps, LEVEL_SCHED_STRATEGY level_ss, SCHEDULE_STRATEGY schedule_s, ROW_GROUP_SCHED_STRATEGY rg_ss);
+anaparas(int tb_size, int subwarp_size, PREPROCESSING_STRATEGY row_s, int row_alpha, LEVEL_PART_STRATEGY level_ps, LEVEL_SCHED_STRATEGY level_ss, SCHEDULE_STRATEGY schedule_ss, ROW_GROUP_SCHED_STRATEGY rg_ss);
 ```
 For example, for the structured matrix **atmosmodd**, a good initiation is
 ```
 anaparas(1024, 4, ROW_BLOCK, 1, LEVEL_WISE, ONE_LEVEL, SIMPLE, RG_SIMPLE);
 ```
 
-2. 
-3. 
-4. 
+2. Run ``sh scripts/run_ag.sh {input matrix}`` to evaluate the performance of AG-SpTRSV with a single matrix. For example:
+```
+sh scripts/run_ag.sh matrix/matrix_sample_csr/delaunay_n13.csr
+```
+
+### Run AG-SpTRSV with exaustive search
+Run ``sh scripts/run_ag_search.sh {input matrix}`` to evaluate the performance of AG-SpTRSV with a single matrix. This script enables AG-SpTRSV to search among all the available schemes in the optimization space. The search space is defined in ``include/search.h``. Set ``#define PRINT_LOG true`` in ``test/main_search.cu`` to output information of the scheme being evaluated and the best scheme evaluated so far, and set ``#define PRINT_LOG false`` to disable outputing. The process of search may take a while. For example:
+```
+sh scripts/run_ag_search.sh matrix/matrix_sample_csr/delaunay_n13.csr
+```
+Run ``sh scripts/run_ag_search.sh {input matrix} {output file}`` to write evaluation statistics to files (perf file). The perf file is used for traning of the performance model. For example:
+```
+sh scripts/run_ag_search.sh matrix/matrix_sample_csr/delaunay_n13.csr sample.csv
+```
+
+
