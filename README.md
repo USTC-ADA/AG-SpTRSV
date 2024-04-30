@@ -89,9 +89,16 @@ Run ``sh scripts/run_ag_search.sh {input matrix}`` to evaluate the performance o
 ```
 sh scripts/run_ag_search.sh matrix/matrix_sample_csr/delaunay_n13.csr
 ```
-Run ``sh scripts/run_ag_search.sh {input matrix} {output file}`` to write evaluation statistics to files (perf file). The perf file is used for traning of the performance model. For example:
+Run ``sh scripts/run_ag_search.sh {input matrix} {output file}`` to write evaluation statistics to files (perf file in CSV format). The perf file is used for traning of the performance model. The user can write multiple results of execution into the same CSV file. For example:
 ```
 sh scripts/run_ag_search.sh matrix/matrix_sample_csr/delaunay_n13.csr sample.csv
 ```
 
+### Train performance model with historical data
+Run ``python mlp.py {perf file} {matrix info} {output file} {train_prop}`` to train the proposed MLP model. ``{perf file}`` is the output CSV file, ``{matrix info}`` is the CSV file for matrix information, ``{output file}`` is the output model file (in pickle format), and ``{train_prop}`` is the proportion of the training set (the rest of datasets are used as the testing set). We have provided the CSV file of our experimental results in ``data/historical_data/history_XXX.csv``, and information of the matrices used in ``data/matrix_info/info.csv``. For example:
+```
+python mlp.py ../data/history_data/history_3080Ti.csv ../data/matrix_info/info.csv try_model.out 0.7
+```
 
+### Run AG-SpTRSV with performance model
+Use the trained performance model for an efficient end-to-end solution. For example 
