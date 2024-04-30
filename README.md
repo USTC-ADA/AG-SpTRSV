@@ -95,7 +95,7 @@ sh scripts/run_ag_search.sh matrix/matrix_sample_csr/delaunay_n13.csr sample.csv
 ```
 
 ### Train performance model with historical data
-Run ``python mlp.py {perf file} {matrix info} {output file} {train_prop}`` to train the proposed MLP model. ``{perf file}`` is the output CSV file, ``{matrix info}`` is the CSV file for matrix information, ``{output file}`` is the output model file (in pickle format), and ``{train_prop}`` is the proportion of the training set (the rest of datasets are used as the testing set). We have provided the CSV file of our experimental results the Release, and information of the matrices used in ``data/matrix_info/info.csv``. For example:
+Run ``python mlp.py {perf file} {matrix info} {output file} {train_prop}`` to train the proposed MLP model. ``{perf file}`` is the output CSV file, ``{matrix info}`` is the CSV file for matrix information, ``{output file}`` is the output model file (in pickle format), and ``{train_prop}`` is the proportion of the training set (the rest of datasets are used as the testing set). We have provided the CSV file of our experimental results the Release (Put ``data/history_XXX.csv`` in ``data/history_data/``), and information of the matrices used in ``data/matrix_info/info.csv``. For example:
 ```
 python mlp.py ../data/history_data/history_3080Ti.csv ../data/matrix_info/info.csv try_model.out 0.7
 ```
