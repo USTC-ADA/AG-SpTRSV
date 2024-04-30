@@ -101,9 +101,12 @@ python mlp.py ../data/history_data/history_3080Ti.csv ../data/matrix_info/info.c
 ```
 
 ### Run AG-SpTRSV with performance model
-Use the trained performance model for an efficient end-to-end solution. Before compilation, please modify the including and linking directory of *python* (``PY_CFLAG`` and ``PY_LDFLAG``), the linking directory of *pytorch* (``PYTORCH_LDFLAG``) and CUDA installing directory (``CUDA_INSTALL_PATH``). Then, compile and run ``./main -i {matrix file} -m {model file}``. For example,
+Use the trained performance model for an efficient end-to-end solution. Before compilation, please modify the including and linking directory of *python* (``PY_CFLAG`` and ``PY_LDFLAG``), the linking directory of *pytorch* (``PYTORCH_LDFLAG``) and CUDA installing directory (``CUDA_INSTALL_PATH``). Then, compile and run ``./main -i {matrix file} -m {model file}``. Before execution, set the linking directory of *pytorch* as an environment variable. 
+
+We have provided trained models on two NVIDIA (3080Ti and A100) platforms at ``data/trained_model/model_cpu_XXX.out``. Users can use the model trained with historical data, or use our models for a quick solution. For example,
 ```
 cd test_model
 make
+export LD_LIBRARY_PATH={pytorch linking library}
 ./main -i ../matrix/matrix_sample_csr/delaunay_n13.csr -m ../data/trained_model/model_cpu_3080Ti.out
 ```
