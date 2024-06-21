@@ -11,21 +11,21 @@ make --quiet
 cd ..
 
 cd test
-make clean
+make clean --quiet
 make all --quiet
 cd ..
 
 cd test_cusp
-make clean
+make clean --quiet
 make all --quiet
 cd ..
 
 cd test_recblock
-make clean
+make clean --quiet
 make --quiet
 cd ..
 
 cd matrix
-make clean
+make clean --quiet
 make --quiet
 cd ..
