@@ -10,7 +10,7 @@ VALUE_TYPE_FLOAT = float
 NVCC_FLAGS = -O3 -w -m64 -Xptxas -dlcm=cg -gencode=arch=compute_86,code=sm_86
 
 #ENVIRONMENT_PARAMETERS
-CUDA_INSTALL_PATH = /usr/local/cuda-11.1
+#CUDA_INSTALL_PATH = /usr/local/cuda-11.1
 
 #includes
 INCLUDES = -I$(CUDA_INSTALL_PATH)/include
