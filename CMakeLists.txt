@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.5)
 
-set(CMAKE_CUDA_COMPILER "/usr/local/cuda-11.4/bin/nvcc")
+# set(CMAKE_CUDA_COMPILER "/usr/local/cuda-11.4/bin/nvcc")
 
 project(SpTRSV LANGUAGES CXX CUDA)
 
 find_package(CUDA REQUIRED)
 
-set(CMAKE_CUDA_FLAGS "-O3 -w -m64 -Xptxas -dlcm=cg -gencode=arch=compute_86,code=sm_86")
+set(CMAKE_CUDA_FLAGS "-O3 -w -m64 -Xptxas -dlcm=cg")
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
