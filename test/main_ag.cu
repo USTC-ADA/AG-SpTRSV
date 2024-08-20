@@ -1,7 +1,6 @@
 #include "AG-SpTRSV.h"
 #include "utils.h"
 #include "YYSpTRSV.h"
-#include "spts_syncfree_cuda.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <cusparse.h>
